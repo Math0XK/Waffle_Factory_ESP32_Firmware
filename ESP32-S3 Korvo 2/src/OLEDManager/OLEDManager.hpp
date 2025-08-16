@@ -9,6 +9,7 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET -1   //   QT-PY / XIAO
+#define SH110X_NO_SPLASH
 
 #define NUMFLAKES 10
 #define XPOS 0
@@ -22,7 +23,8 @@
 #define LOGO_WIDTH 128
 
 extern const unsigned char PROGMEM logo16_glcd_bmp[];
-extern const unsigned char PROGMEM myBitmap [];
+extern const unsigned char PROGMEM pseBitmap [];
+extern const unsigned char PROGMEM waffleFactoryBitmap [];
 
 extern Adafruit_SH1106G display;
 

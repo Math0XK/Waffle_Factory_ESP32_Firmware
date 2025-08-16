@@ -1,18 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Simple Webpage</title>
-
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaufrier Intelligent</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#222; color:#eee; margin:0; }
+    header { background:#444; padding:1rem; text-align:center; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1rem; padding:1rem; }
+    .card { background:#333; padding:1rem; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.5); }
+    .alert { background:#a00; padding:1rem; border-radius:10px; color:#fff; }
+    button { background:#ffb400; border:none; padding:0.5rem 1rem; border-radius:5px; cursor:pointer; }
+  </style>
 </head>
 <body>
-    <button class="settings-button" onclick="toggleSettings()">⚙️</button>
-    <h1>Welcome to My Simple Webpage</h1>
-    <p>This is a basic HTML page.</p>
 
-    <script src="script.js"></script>
+<header>
+  <h1>Tableau de bord – Gaufrier Intelligent</h1>
+  <div id="status">Connexion : <span style="color:lime">En ligne</span></div>
+</header>
+
+<main class="grid">
+  <div class="card">
+    <h2>Températures</h2>
+    <p>PT100 Haut : <span id="temp1">-- °C</span></p>
+    <p>PT100 Bas : <span id="temp2">-- °C</span></p>
+    <p>NTC : <span id="temp3">-- °C</span></p>
+  </div>
+
+  <div class="card">
+    <h2>Temps de fonctionnement</h2>
+    <p id="uptime">--:--:--</p>
+  </div>
+
+  <div class="card">
+    <h2>Historique</h2>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="alert" id="faults">
+    Aucun défaut détecté
+  </div>
+</main>
+
+<section class="card" style="margin:1rem;">
+  <h2>Contrôles (Code PIN requis)</h2>
+  <input type="password" id="pin" placeholder="Entrez le code PIN">
+  <button onclick="login()">Valider</button>
+  <div id="controls" style="display:none;">
+    <p><label><input type="checkbox" id="pid"> PID Activé</label></p>
+    <p>Consigne température : <input type="number" id="setTemp" min="50" max="300"> °C <button>Appliquer</button></p>
+    <button>Reset compteur</button>
+    <button>Reset défauts</button>
+  </div>
+</section>
+
+<script>
+  function login() {
+    let pin = document.getElementById('pin').value;
+    if(pin === "1234"){ // à sécuriser côté ESP
+      document.getElementById('controls').style.display = "block";
+    } else {
+      alert("Code incorrect !");
+    }
+  }
+</script>
+
 </body>
 </html>
